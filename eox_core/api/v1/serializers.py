@@ -362,6 +362,7 @@ class EdxappCourseEnrollmentQuerySerializer(EdxappCourseEnrollmentSerializer):
     force = serializers.BooleanField(default=False)
     course_id = EdxappValidatedCourseIDField(default=None)
     bundle_id = serializers.CharField(max_length=255, default=None)
+    mode = serializers.ChoiceField(choices=["audit", "honor", "verified"], default="audit")  # Add the mode field
 
     class Meta(EdxappCourseEnrollmentSerializer.Meta):
         """
@@ -371,6 +372,7 @@ class EdxappCourseEnrollmentQuerySerializer(EdxappCourseEnrollmentSerializer):
             "example": OrderedDict(
                 {
                     "force": False,
+                    "mode": "audit",  # Provide a default example value for 'mode'
                     **EdxappCourseEnrollmentSerializer.Meta.swagger_schema_fields.get("example")
                 },
             ),
